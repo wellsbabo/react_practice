@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");   //위치 지정하고
+        // const Title = () => (
+        //     <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>Hello I'm a title</h3>
+        // );
+        function Title(){
+            return (<h3 id="title" onMouseEnter={() => console.log("mouse enter")}>Hello I'm a title</h3>)
+        }
+        const Btn = () => (
+            <button onClick={()=> console.log("I'm clicked")} style={{backgroundColor:"tomato"}}>Click me</button>
+        );
+
+        // const h3 = React.createElement("h3",{
+        //     id:"title",
+        //     onMouseEnter: () => console.log("mouse enter")
+        // },"Hello I'm a span");   //elemet 만들고, 두번째 파라미티로 프로퍼티를 넣을 수 있음
+
+
+        // const btn = React.createElement("button",{
+        //     onClick: () => console.log("I'm clicked"),
+        //     style:{
+        //         backgroundColor:"tomato"
+        //     }
+        // },"Click me");
+        // const container = React.createElement("div",null,[title,btn]);
+
+        //<title/>과 <btn/>은 위에서 만들어놓은 함수를 가져와서 return값을 넣는거랑 똑같음
+        //앞글자가 반드시 대문자여야함. 소문자면 HTML 태그로 착각할 수 있음
+        //직접 만든 react 요소들은 만드시 대문자로 만들어줘야함
+        const Container = () => (
+            <div>
+                <title>이건 안나옴</title>
+                <Title/>
+                <Btn/>
+            </div>
+        );
+        ReactDOM.render(<Container/>, root);    //render
+    </script>
+
+</html>
+
+
+<!-- JSX는 어플리케이션을 여러가지 작은 요소로 나누어 관리할 수 있게 해줌. 여러 요소로 잘게 쪼개서 만들어서 합쳐 주기만 하면 됨 -->

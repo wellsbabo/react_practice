@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");   //위치 지정하고
+        let counter = 0;
+        function countUp(){
+            counter = counter + 1;
+            // ReactDOM.render(<Container/>, root);    //rerender
+            render();
+        }
+        function render(){
+            ReactDOM.render(<App/>, root);
+        }
+        const App = () => (
+            <div>
+                <h3>Total clicks: {counter}</h3>
+                <button onClick={countUp}>Click me</button>
+            </div>
+        );
+        // ReactDOM.render(<Container/>, root);    //render
+        render();
+    </script>
+
+</html>
+
+
+<!-- JSX는 어플리케이션을 여러가지 작은 요소로 나누어 관리할 수 있게 해줌. 여러 요소로 잘게 쪼개서 만들어서 합쳐 주기만 하면 됨 -->

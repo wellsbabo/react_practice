@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        function App(){
+            const [amount, setAmount] = React.useState(0);
+            const [flipped, setFlipped] = React.useState(false);
+            function onChange(event){
+                // console.log(event.target.value);
+                setAmount(event.target.value);
+            }
+
+            function onFlip(){
+                reset();
+                // setFlipped((current) => !current);
+                setFlipped((current) => !current);
+            }
+
+            function reset(){
+                setAmount(0);
+            }
+            return (
+                // JSX가 쓰이는거지 HTML이 아니다. 미리 예약된 예약어는 쓰지말아야함 ex)for -> htmlFor
+                <div>
+                    <h1>Super Converter</h1>
+                    <div>
+                        <label htmlFor="minutes">Minutes</label>
+                        <input
+                            value={flipped ? amount*60 :amount}     //input의 값을 state로 연결. 어디서든 input의 값 수정가능
+                            id="minutes"
+                            placeholder="Minutes"
+                            type="number"
+                            onChange={onChange}
+                            // disabled = {flipped === true}
+                            disabled = {flipped}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="hours">Hours</label>
+                        <input
+                            value={flipped ? amount : Math.round(amount / 60)}
+                            id="hours"
+                            placeholder="Hours"
+                            type="number"
+                            onChange={onChange}
+                            // disabled = {flipped === false} //flipped가 false이면 hour이 disable
+                            disabled = {!flipped}
+                        />
+                    </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onFlip}>Flip</button>
+                </div>
+            );
+        }
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />,root);
+    </script>
+</html>
+
+
+<!-- JSX는 어플리케이션을 여러가지 작은 요소로 나누어 관리할 수 있게 해줌. 여러 요소로 잘게 쪼개서 만들어서 합쳐 주기만 하면 됨 -->
+
+<!-- 
+    const food = ["tomato","potato"]
+
+const myFavFood = food[0];
+const mySecondFavFood = food[1];
+위에 코드와
+const [myFavFood, mySecondFavFood] = food;
+이 코드는 같은 의미
+실행값: 
+myFavFood = "tomato"
+mySecondFavFood = "potato" 
+-->
