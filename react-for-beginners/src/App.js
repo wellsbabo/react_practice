@@ -2,12 +2,40 @@ import Button from "./Button";
 import styles from "./App.module.css"
 import {useState, useEffect} from "react";
 
+function Hello(){
+    
+    //밑에 cleanup 함수를 쪼개보면 아래와 같아진다
+    // function destroyFn(){
+    //     console.log("destroyed :(");
+    // }
+    // function createFn(){
+    //     console.log("created :)");
+    //     return destroyFn();
+    // }
+    // useEffect(createFn,[]);
+    
+    
+    useEffect(() => {
+        console.log("created :)");
+        return () => console.log("destroyed :(")    //cleanup 함수
+    },[])
+    return (
+        <h1>Hello</h1>
+    )
+}
+
 function App() {
+    const[showing, setShowing] = useState(false);
     const [counter, setValue] = useState(0);
     const[keyword, setKeyword] = useState("");
+
     const onClick = () => {
         setValue((prev) => prev + 1);
     };
+
+    const onClick2 = () => {
+        setShowing((prev) => !prev);
+    }
     const onChange = (event) => setKeyword(event.target.value);
 
     useEffect(() =>{
@@ -34,14 +62,20 @@ function App() {
 
     return (
         <div>
-            <input
-                value={keyword}
-                onChange={onChange}
-                type="text"
-                placeholder="Search here..."
-            />
-            <h1 className={styles.title}>{counter}</h1>
-            <button onClick={onClick}>Click me</button>
+            <div>
+                <input
+                    value={keyword}
+                    onChange={onChange}
+                   type="text"
+                  placeholder="Search here..."
+                 />
+                <h1 className={styles.title}>{counter}</h1>
+                <button onClick={onClick}>Click me</button>
+            </div>
+            <div>
+                {showing? <Hello/> : null}
+                <button onClick={onClick2}>{showing ? "Hide" : "Show"}</button>
+            </div>
         </div>
     );
 }
